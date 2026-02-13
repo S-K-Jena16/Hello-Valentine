@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>💗Hello Valentine💗</title>
+    <style>
+        /* overall romantic pink tone + playful fonts */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, #ffe6f0 0%, #ffd9e8 100%);
+            font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "💗💖💘💞💕";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: min(32px, 8vw);
+            opacity: 0.1;
+            white-space: nowrap;
+            width: 100%;
+            pointer-events: none;
+            transform: rotate(-5deg);
+        }
+
+        .valentine-card {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: min(60px, 8vw) min(60px, 8vw) min(50px, 7vw) min(50px, 7vw);
+            box-shadow: 0 20px 40px rgba(233, 30, 99, 0.15),
+                        0 5px 15px rgba(255, 105, 180, 0.2),
+                        inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+            padding: clamp(20px, 5vw, 40px) clamp(15px, 4vw, 30px);
+            text-align: center;
+            border: 1px solid rgba(255, 192, 203, 0.5);
+            position: relative;
+            z-index: 10;
+            transition: 0.3s;
+        }
+
+        .heart-shower {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart-shower span {
+            position: absolute;
+            font-size: clamp(16px, 5vw, 24px);
+            color: rgba(255, 107, 139, 0.2);
+            animation: float 6s infinite;
+            user-select: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0.8; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+        }
+
+        .big-hearts {
+            font-size: clamp(32px, 10vw, 52px);
+            line-height: 1.2;
+            letter-spacing: clamp(4px, 2vw, 12px);
+            word-break: break-word;
+            color: #d6336c;
+            text-shadow: 0 0 8px #ffb6c1, 0 0 20px #ff8da1;
+            margin-bottom: 0.5rem;
+        }
+
+        .valentine-name {
+            font-size: clamp(2rem, 8vw, 3.2rem);
+            font-weight: 800;
+            color: #b23b5e;
+            display: inline-block;
+            background: linear-gradient(45deg, #d64161, #b23b5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(255, 128, 128, 0.3);
+            margin: 0 5px;
+            line-height: 1.2;
+        }
+
+        .ask-text {
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+            font-weight: 700;
+            color: #7a2e4a;
+            margin: 10px 0 5px;
+            line-height: 1.3;
+        }
+
+        .inline-hearts {
+            font-size: clamp(30px, 8vw, 40px);
+            display: inline-block;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .sub-choose {
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            color: #a3485b;
+            font-style: italic;
+            margin: clamp(15px, 4vh, 20px) 0 clamp(20px, 5vh, 30px);
+            background: rgba(255, 218, 224, 0.6);
+            padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 18px);
+            border-radius: 60px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            border: 1px dashed #ff99aa;
+            max-width: 90%;
+            word-break: break-word;
+        }
+
+        .button-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(15px, 4vw, 30px);
+            margin: clamp(15px, 4vh, 25px) 0 clamp(15px, 3vh, 20px);
+            flex-wrap: wrap;
+            position: relative;
+            min-height: clamp(80px, 15vw, 100px);
+            width: 100%;
+        }
+
+        .btn {
+            border: none;
+            background: white;
+            padding: clamp(8px, 2vw, 12px) clamp(15px, 4vw, 30px);
+            font-size: clamp(1rem, 4vw, 1.6rem);
+            font-weight: bold;
+            border-radius: min(60px, 10vw);
+            box-shadow: 0 clamp(4px, 1.5vw, 8px) 0 #b34b5e, 0 clamp(6px, 2vw, 10px) clamp(10px, 3vw, 20px) rgba(200, 70, 100, 0.25);
+            color: white;
+            cursor: pointer;
+            transition: 0.08s linear;
+            letter-spacing: clamp(1px, 1vw, 3px);
+            border: 2px solid white;
+            min-width: clamp(100px, 30vw, 120px);
+            transform: scale(1);
+            min-height: clamp(50px, 12vw, 60px);
+            line-height: 1.2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: clamp(0.9rem, 3.5vw, 1.6rem);
+            flex: 0 1 auto;
+        }
+
+        .btn-yes {
+            background: radial-gradient(circle at 30% 30%, #ff6a88, #d6406a);
+            box-shadow: 0 clamp(4px, 1.5vw, 6px) 0 #8a2e4a, 0 clamp(6px, 2vw, 10px) clamp(10px, 3vw, 20px) #ff99aa;
+            position: relative;
+            z-index: 20;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+            background: radial-gradient(circle at 30% 30%, #ff859f, #e64d6b);
+            box-shadow: 0 clamp(2px, 1vw, 4px) 0 #6d2338, 0 clamp(8px, 2.5vw, 14px) clamp(15px, 4vw, 25px) #fca4b2;
+        }
+
+        .btn-no {
+            background: radial-gradient(circle at 70% 30%, #a5a5a5, #6e6e6e);
+            box-shadow: 0 clamp(4px, 1.5vw, 6px) 0 #3a3a3a, 0 clamp(6px, 2vw, 10px) clamp(10px, 3vw, 20px) rgba(80, 80, 80, 0.3);
+            position: absolute;
+            border: 2px solid #ddd;
+            transition: left 0.12s ease, top 0.12s ease;
+            color: #fcfcfc;
+            will-change: left, top;
+            z-index: 999;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: min(200px, 60vw);
+            padding-left: clamp(8px, 2vw, 15px);
+            padding-right: clamp(8px, 2vw, 15px);
+        }
+
+        .accepted-message {
+            margin-top: clamp(20px, 5vh, 40px);
+            padding: clamp(15px, 4vw, 25px) clamp(15px, 4vw, 25px) clamp(20px, 5vw, 35px);
+            background: rgba(255, 230, 240, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: min(70px, 8vw) min(70px, 8vw) min(40px, 6vw) min(40px, 6vw);
+            border: 3px solid white;
+            display: none;
+            animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 15px 30px rgba(181, 79, 109, 0.25);
+            width: 100%;
+        }
+
+        @keyframes pop {
+            0% { opacity: 0; transform: scale(0.7); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .accepted-message.show {
+            display: block;
+        }
+
+        .accepted-message h2 {
+            font-size: clamp(1.8rem, 6vw, 2.6rem);
+            color: #b34167;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            gap: clamp(5px, 2vw, 12px);
+            flex-wrap: wrap;
+            word-break: break-word;
+        }
+
+        .accepted-message p {
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            color: #862d4c;
+            margin: 15px 0 5px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .valentine-image {
+            margin: 20px auto 15px;
+            max-width: 100%;
+            border-radius: min(30px, 5vw);
+            border: 6px solid white;
+            box-shadow: 0 12px 28px rgba(210, 70, 110, 0.4);
+            overflow: hidden;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .valentine-image img {
+            display: block;
+            width: 100%;
+            max-width: min(450px, 80vw);
+            height: auto;
+            border-radius: min(24px, 4vw);
+            object-fit: cover;
+            margin: 0 auto;
+        }
+
+        .music-credit {
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            color: #a15262;
+            margin-top: 10px;
+            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+
+        .accepted-message .signature {
+            font-size: clamp(1.2rem, 5vw, 1.7rem);
+            color: #b35e70;
+            margin-top: 20px;
+            font-style: italic;
+            border-top: 2px dashed #ffa5b4;
+            padding-top: 20px;
+            word-break: break-word;
+        }
+
+        .reset-area {
+            margin-top: clamp(15px, 4vh, 20px);
+        }
+
+        .reset-link {
+            background: none;
+            border: none;
+            color: #b36270;
+            text-decoration: underline dotted;
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            cursor: pointer;
+            padding: clamp(8px, 2vh, 10px);
+            opacity: 0.8;
+        }
+
+        .hidden-audio {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                min-width: 100px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            .button-panel {
+                gap: 15px;
+            }
+            .valentine-card {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart-shower">
+        <span style="left: 5%; top: 10%; animation-delay: 0s;">💖💗💞</span>
+        <span style="left: 15%; top: 40%; animation-delay: 2s;">💗💗💞</span>
+        <span style="left: 80%; top: 20%; animation-delay: 1s;">💘💗💞</span>
+        <span style="left: 45%; top: 70%; animation-delay: 3s;">💞💗💞</span>
+        <span style="left: 70%; top: 85%; animation-delay: 0.5s;">💕💗💞</span>
+        <span style="left: 90%; top: 50%; animation-delay: 2.4s;">💓💗💞</span>
+        <span style="left: 25%; top: 95%; animation-delay: 1.8s;">💝💗💞</span>
+    </div>
+
+    <!-- hidden audio for background music - fixed for iOS -->
+    <audio id="bgMusic" class="hidden-audio" loop preload="auto" playsinline>
+        <source src="I_Love_You.mp3" type="audio/mpeg">
+        <source src="I_Love_You.m4a" type="audio/mp4"> <!-- Fallback for iOS -->
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="valentine-card">
+        <div class="big-hearts">
+            💖
+        </div>
+
+        <div>
+            <span class="valentine-name" id="valentineNameDisplay">Satya</span>
+            <span class="ask-text">,</span>
+        </div>
+        <div class="ask-text">
+            Will you be my Valentine? 
+            <span class="inline-hearts">💗💞</span>
+        </div>
+
+        <div class="sub-choose">
+            💘 Choose wisely. (“No” button is… shy.) 💘
+        </div>
+
+        <!-- Yes & No buttons -->
+        <div class="button-panel" id="buttonPanel">
+            <button class="btn btn-yes" id="yesBtn">YES</button>
+            <button class="btn btn-no" id="noBtn">NO</button>
+        </div>
+
+        <!-- acceptance message with image & music -->
+        <div id="acceptedMessage" class="accepted-message">
+            <h2>💖 Best Decision Ever 💖</h2>
+            <p>Happy Valentine's Day 😘</p>
+            <p style="font-size: clamp(1.6rem, 6vw, 2.2rem);">I love you ❤️</p>
+            
+            <div class="valentine-image">
+                <img src="love.jpeg"
+                     alt="valentine teddy bear with rose" 
+                     loading="lazy">
+            </div>
+            <div class="music-credit">
+                🎵 playing sweet music for us 🎵
+            </div>
+
+            <div>
+                <span class="valentine-name" id="valentineNameDisplay2">Your Sweetheart Smita</span>
+            </div>
+        </div>
+
+        <div class="reset-area">
+            <button class="reset-link" id="resetBtn">💞 Once again? 💞</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ---------- get name from URL parameters ----------
+            const urlParams = new URLSearchParams(window.location.search);
+            let valentineName = urlParams.get('valentineName') || 'Satya';
+            let senderName = urlParams.get('name') || 'Smita';
+
+            const valentineSpan = document.getElementById('valentineNameDisplay');
+            if (valentineSpan) valentineSpan.textContent = valentineName;
+            
+            const valentineSpan2 = document.getElementById('valentineNameDisplay2');
+            if (valentineSpan2) valentineSpan2.textContent = `Your Sweetheart ${senderName}`;
+            
+            const signatureSpan = document.getElementById('signatureSender');
+            if (signatureSpan) signatureSpan.textContent = `~ ${senderName}`;
+
+            // ---------- DOM elements ----------
+            const yesButton = document.getElementById('yesBtn');
+            const noButton = document.getElementById('noBtn');
+            const acceptedDiv = document.getElementById('acceptedMessage');
+            const buttonPanel = document.getElementById('buttonPanel');
+            const resetBtn = document.getElementById('resetBtn');
+            const bgMusic = document.getElementById('bgMusic');
+
+            // ---------- STATE ----------
+            let isAccepted = false;
+            let runawayActive = true;
+            let audioUnlocked = false; // For iOS
+
+            // ---------- TEASE TEXTS ----------
+            const teaseTexts = [
+                "ନାହିଁ ନା! 😜", 
+                "ଏତେ ସହଜ ନୁହେଁ😎",
+                "ତୁମେ ମୋର ହେବ😎",
+                "ଚେଷ୍ଟା ଚାଲୁ ରଖ 😜",
+                "ଆଉଥରେ ଭାବ 😉", 
+                "ମୋ ହୃଦୟ ଭାଙ୍ଗିଯିବ💔",
+            ];
+
+            // ---------- iOS Audio Unlock Function ----------
+            function unlockAudioForIOS() {
+                if (audioUnlocked) return Promise.resolve(true);
+                
+                // Try to play a tiny silent sound to unlock audio on iOS
+                if (bgMusic) {
+                    bgMusic.volume = 0.1;
+                    bgMusic.muted = true; // Start muted to bypass restrictions
+                    
+                    return bgMusic.play()
+                        .then(() => {
+                            console.log("Audio unlocked for iOS");
+                            bgMusic.pause();
+                            bgMusic.currentTime = 0;
+                            bgMusic.muted = false; // Unmute for later
+                            audioUnlocked = true;
+                            return true;
+                        })
+                        .catch(err => {
+                            console.log("iOS unlock attempt failed, will try on YES click:", err);
+                            return false;
+                        });
+                }
+                return Promise.resolve(false);
+            }
+
+            // Try to unlock audio on any user interaction (touchstart)
+            function handleUserInteraction() {
+                if (!audioUnlocked) {
+                    unlockAudioForIOS().then(success => {
+                        if (success) {
+                            console.log("Audio unlocked via user interaction");
+                        }
+                    });
+                }
+                // Remove listener after first attempt
+                document.removeEventListener('touchstart', handleUserInteraction);
+                document.removeEventListener('mousedown', handleUserInteraction);
+            }
+
+            // Add user interaction listeners for iOS unlock
+            document.addEventListener('touchstart', handleUserInteraction, { once: true });
+            document.addEventListener('mousedown', handleUserInteraction, { once: true });
+
+            // ---------- helper: check if NO would overlap YES ----------
+            function wouldOverlapYes(noLeft, noTop) {
+                if (!yesButton || !buttonPanel) return false;
+
+                const yesRect = yesButton.getBoundingClientRect();
+                const panelRect = buttonPanel.getBoundingClientRect();
+                
+                const yesRelLeft = yesRect.left - panelRect.left;
+                const yesRelTop = yesRect.top - panelRect.top;
+                const yesRelRight = yesRelLeft + yesRect.width;
+                const yesRelBottom = yesRelTop + yesRect.height;
+
+                const noWidth = noButton.offsetWidth;
+                const noHeight = noButton.offsetHeight;
+
+                const noRelRight = noLeft + noWidth;
+                const noRelBottom = noTop + noHeight;
+
+                const overlap = !(noRelRight <= yesRelLeft || 
+                                 noLeft >= yesRelRight || 
+                                 noRelBottom <= yesRelTop || 
+                                 noTop >= yesRelBottom);
+                
+                return overlap;
+            }
+
+            // ---------- get random position inside panel that does NOT overlap YES ----------
+            function getSafeRandomPosition() {
+                if (!buttonPanel || !noButton || !yesButton) return { x: 10, y: 10 };
+
+                const panelRect = buttonPanel.getBoundingClientRect();
+                const noWidth = noButton.offsetWidth;
+                const noHeight = noButton.offsetHeight;
+
+                const maxLeft = Math.max(10, panelRect.width - noWidth - 10);
+                const maxTop = Math.max(10, panelRect.height - noHeight - 10);
+                const minLeft = 10;
+                const minTop = 10;
+
+                if (maxLeft < minLeft || maxTop < minTop) {
+                    const yesRect = yesButton.getBoundingClientRect();
+                    const yesLeft = yesRect.left - panelRect.left;
+                    const yesTop = yesRect.top - panelRect.top;
+                    return {
+                        x: Math.min(yesLeft + yesRect.width + 15, Math.max(10, panelRect.width - noWidth - 10)),
+                        y: Math.min(Math.max(yesTop, minTop), Math.max(10, panelRect.height - noHeight - 10))
+                    };
+                }
+
+                for (let attempt = 0; attempt < 100; attempt++) {
+                    const newX = Math.random() * (maxLeft - minLeft) + minLeft;
+                    const newY = Math.random() * (maxTop - minTop) + minTop;
+                    
+                    if (!wouldOverlapYes(newX, newY)) {
+                        return { x: newX, y: newY };
+                    }
+                }
+
+                const yesRect = yesButton.getBoundingClientRect();
+                const yesLeft = yesRect.left - panelRect.left;
+                const yesTop = yesRect.top - panelRect.top;
+                return {
+                    x: Math.min(yesLeft + yesRect.width + 20, Math.max(10, panelRect.width - noWidth - 10)),
+                    y: Math.min(Math.max(yesTop, minTop), Math.max(10, panelRect.height - noHeight - 10))
+                };
+            }
+
+            function jumpNoButtonSafely() {
+                if (!noButton || isAccepted || !runawayActive) return;
+                const pos = getSafeRandomPosition();
+                noButton.style.position = 'absolute';
+                noButton.style.left = pos.x + 'px';
+                noButton.style.top = pos.y + 'px';
+                noButton.style.zIndex = '999';
+                noButton.style.display = 'block';
+            }
+
+            function teaseNoButton() {
+                if (!noButton || isAccepted) return;
+                const randomIndex = Math.floor(Math.random() * teaseTexts.length);
+                noButton.textContent = teaseTexts[randomIndex];
+            }
+
+            function safeJumpAndTease() {
+                if (!runawayActive || isAccepted) return;
+                jumpNoButtonSafely();
+                teaseNoButton();
+            }
+
+            function handleNoClick(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (isAccepted) return;
+                safeJumpAndTease();
+            }
+
+            // ---------- YES button click – show IMAGE, play MUSIC (iOS fixed) ----------
+            function handleYesClick(e) {
+                e.preventDefault();
+                if (isAccepted) return;
+
+                isAccepted = true;
+                runawayActive = false;
+
+                acceptedDiv.classList.add('show');
+
+                // iOS-friendly audio play
+                if (bgMusic) {
+                    bgMusic.volume = 0.5;
+                    bgMusic.muted = false;
+                    bgMusic.currentTime = 0;
+                    
+                    // Load the audio if not already loaded
+                    bgMusic.load();
+                    
+                    // Play with proper iOS handling
+                    const playPromise = bgMusic.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise
+                            .then(() => {
+                                console.log("Audio started successfully on iOS");
+                                audioUnlocked = true;
+                            })
+                            .catch(err => {
+                                console.log("iOS audio play failed:", err);
+                                // Show a subtle message that music couldn't play
+                                const credit = document.querySelector('.music-credit');
+                                if (credit) {
+                                    credit.innerHTML = '🎵 tap to play music 🎵';
+                                    credit.style.cursor = 'pointer';
+                                    credit.onclick = () => {
+                                        bgMusic.play();
+                                        credit.innerHTML = '🎵 playing sweet music for us 🎵';
+                                        credit.onclick = null;
+                                    };
+                                }
+                            });
+                    }
+                }
+
+                // Disarm NO button
+                noButton.disabled = true;
+                noButton.style.opacity = '1';
+                noButton.style.cursor = 'default';
+                noButton.style.position = 'relative';
+                noButton.style.left = '';
+                noButton.style.top = '';
+                noButton.style.position = '';
+                noButton.textContent = '🫂!!!YAY!!!🫂';
+
+                yesButton.disabled = true;
+                yesButton.style.opacity = '0.8';
+
+                acceptedDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            function handleReset(e) {
+                e.preventDefault();
+
+                isAccepted = false;
+                runawayActive = true;
+
+                acceptedDiv.classList.remove('show');
+
+                yesButton.disabled = false;
+                yesButton.style.opacity = '1';
+                
+                noButton.disabled = false;
+                noButton.style.opacity = '1';
+                noButton.textContent = 'NO';
+                
+                setTimeout(() => {
+                    if (yesButton && buttonPanel && noButton) {
+                        const yesRect = yesButton.getBoundingClientRect();
+                        const panelRect = buttonPanel.getBoundingClientRect();
+                        const yesLeft = yesRect.left - panelRect.left;
+                        const yesTop = yesRect.top - panelRect.top;
+                        const maxLeft = Math.max(10, panelRect.width - noButton.offsetWidth - 10);
+                        const maxTop = Math.max(10, panelRect.height - noButton.offsetHeight - 10);
+                        const startX = Math.min(yesLeft + yesRect.width + 20, maxLeft);
+                        const startY = Math.min(Math.max(yesTop + (yesRect.height/2) - (noButton.offsetHeight/2), 10), maxTop);
+                        
+                        noButton.style.position = 'absolute';
+                        noButton.style.left = startX + 'px';
+                        noButton.style.top = startY + 'px';
+                        noButton.style.zIndex = '999';
+                    }
+                }, 20);
+
+                if (bgMusic) {
+                    bgMusic.pause();
+                    bgMusic.currentTime = 0;
+                }
+            }
+
+            // ---------- attach event listeners ----------
+            if (noButton) {
+                noButton.addEventListener('click', handleNoClick);
+                
+                noButton.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    if (runawayActive && !isAccepted) {
+                        safeJumpAndTease();
+                    }
+                }, { passive: false });
+            }
+
+            if (yesButton) {
+                yesButton.addEventListener('click', handleYesClick);
+                // Also try to unlock audio when hovering YES (for iOS)
+                yesButton.addEventListener('touchstart', function() {
+                    if (!audioUnlocked) {
+                        unlockAudioForIOS();
+                    }
+                }, { once: true });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', handleReset);
+            }
+
+            function initPosition() {
+                if (yesButton && buttonPanel && noButton) {
+                    setTimeout(() => {
+                        const yesRect = yesButton.getBoundingClientRect();
+                        const panelRect = buttonPanel.getBoundingClientRect();
+                        const yesLeft = yesRect.left - panelRect.left;
+                        const yesTop = yesRect.top - panelRect.top;
+                        const maxLeft = Math.max(10, panelRect.width - noButton.offsetWidth - 10);
+                        const maxTop = Math.max(10, panelRect.height - noButton.offsetHeight - 10);
+                        const startX = Math.min(yesLeft + yesRect.width + 20, maxLeft);
+                        const startY = Math.min(Math.max(yesTop + (yesRect.height/2) - (noButton.offsetHeight/2), 10), maxTop);
+                        
+                        noButton.style.position = 'absolute';
+                        noButton.style.left = startX + 'px';
+                        noButton.style.top = startY + 'px';
+                        buttonPanel.style.position = 'relative';
+                    }, 20);
+                }
+            }
+
+            window.addEventListener('load', initPosition);
+            
+            window.addEventListener('resize', function() {
+                if (!isAccepted && runawayActive && noButton && yesButton) {
+                    initPosition();
+                }
+            });
+
+            window.addEventListener('orientationchange', function() {
+                setTimeout(initPosition, 100);
+            });
+
+            // Preload audio for iOS
+            if (bgMusic) {
+                bgMusic.load();
+                // Set initial properties
+                bgMusic.volume = 0.5;
+                bgMusic.muted = false;
+            }
+
+        })();
+    </script>
+
+    <noscript>
+        <div style="color: #b33; padding: 20px; background: white; border-radius: 20px;">
+            JavaScript makes the No button run! Please enable JS 💕
+        </div>
+    </noscript>
+</body>
+</html>
